@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import routeData from '../data/Dummy-route.json';
+import routeData from '../Data/dummy-route.json';
 import day from '../Data/day.json';
 
 
