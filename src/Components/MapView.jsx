@@ -5,17 +5,16 @@ import 'leaflet/dist/leaflet.css';
 import routeData from '../Data/dummy-route.json';
 import day from '../Data/day.json';
 
-
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x,
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
 });
-
 
 const vehicleIcon = L.divIcon({
   html: `<div style="font-size: 24px; color: red;">🚗</div>`,
@@ -82,10 +81,11 @@ const MapView = () => {
   const currentPos = coords[currentIndex];
 
   return (
-    <div className="relative w-full max-w-6xl h-[90vh] bg-white rounded-xl shadow-md p-2">
-      <div className="mb-4 flex justify-between items-center flex-wrap space-x-4 ">
-        <h2 className="text-xl font-semibold">Vehicle Tracking</h2>
-        <div className="flex gap-2">
+    <div className="relative w-full h-screen bg-white p-2">
+      {/* Top Controls */}
+      <div className="mb-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 flex-wrap px-2">
+        <h2 className="text-lg sm:text-xl font-semibold">Vehicle Tracking</h2>
+        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
           <button
             onClick={handlePlay}
             disabled={destinationIndex === null}
@@ -120,28 +120,32 @@ const MapView = () => {
         </div>
       </div>
 
-      <MapContainer center={coords[0]} zoom={13} style={{ width: '100%', height: '80%' }}>
-        <TileLayer
-          attribution='&copy; OpenStreetMap contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+      {/* Map */}
+      <div className="w-full h-[80vh] sm:h-[85vh]">
+        <MapContainer center={coords[0]} zoom={13} className="w-full h-full">
+          <TileLayer
+            attribution='&copy; OpenStreetMap contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker
+            position={currentPos}
+            icon={vehicleIcon}
+            eventHandlers={{ click: handleCarClick }}
+          />
+          {showTrack && (
+            <Polyline positions={coords.slice(0, currentIndex + 1)} color="green" />
+          )}
+        </MapContainer>
+      </div>
 
-        <Marker
-          position={currentPos}
-          icon={vehicleIcon}
-          eventHandlers={{ click: handleCarClick }}
-        />
-
-        {showTrack && <Polyline positions={coords.slice(0, currentIndex + 1)} color="green" />}
-      </MapContainer>
-
-      
-      <div className="mt-2 text-sm text-gray-600 font-bold">
+      {/* Speed Info */}
+      <div className="mt-2 text-sm text-gray-600 font-bold px-2">
         ⚡ Current Speed: {(1000 / speed).toFixed(1)}x
       </div>
 
+      {/* Info Panel */}
       {showPanel && (
-        <div className="absolute top-24 right-8 bg-white shadow-lg border rounded-lg w-[300px] z-[1000] p-4">
+        <div className="absolute z-[1000] bg-white shadow-lg border rounded-lg p-4 w-[90%] max-w-[300px] sm:w-[300px] sm:right-8 sm:top-24 top-[30%] left-1/2 transform -translate-x-1/2 sm:transform-none">
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-lg font-semibold">🚗 Vehicle Info</h3>
             <button
@@ -152,7 +156,7 @@ const MapView = () => {
             </button>
           </div>
 
-          <p className="text-sm text-gray-600">📍 Location: {routeData[currentIndex]?.name || "Unknown"}</p>
+          <p className="text-sm text-gray-600">📍 Location: {routeData[currentIndex]?.name || 'Unknown'}</p>
           <p className="text-sm">🔋 Battery: 16%</p>
           <p className="text-sm">🛣️ Distance: 834.89 km</p>
           <p className="text-sm">🚦 Speed: {(1000 / speed).toFixed(1)}x</p>
@@ -167,9 +171,7 @@ const MapView = () => {
             >
               <option value="">-- Select --</option>
               {coords.map((_, idx) => (
-                <option key={idx} value={idx}>
-                  Point {idx}
-                </option>
+                <option key={idx} value={idx}>Point {idx}</option>
               ))}
             </select>
 
@@ -182,9 +184,7 @@ const MapView = () => {
             >
               <option value="">-- Select --</option>
               {day.map((item, idx) => (
-                <option key={idx} value={item.day}>
-                  {item.day}
-                </option>
+                <option key={idx} value={item.day}>{item.day}</option>
               ))}
             </select>
           </div>
