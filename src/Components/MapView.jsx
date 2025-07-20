@@ -82,8 +82,8 @@ const MapView = () => {
   const currentPos = coords[currentIndex];
 
   return (
-    <div className="relative w-full max-w-6xl h-[90vh] bg-white rounded-xl shadow-md p-4">
-      <div className="mb-4 flex justify-between items-center">
+    <div className="relative w-full max-w-6xl h-[90vh] bg-white rounded-xl shadow-md p-2">
+      <div className="mb-4 flex justify-between items-center flex-wrap space-x-4 ">
         <h2 className="text-xl font-semibold">Vehicle Tracking</h2>
         <div className="flex gap-2">
           <button
@@ -136,7 +136,7 @@ const MapView = () => {
       </MapContainer>
 
       {/* Current Speed Display */}
-      <div className="mt-2 text-sm text-gray-600">
+      <div className="mt-2 text-sm text-gray-600 font-bold">
         ⚡ Current Speed: {(1000 / speed).toFixed(1)}x
       </div>
 
