@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import routeData from '../data/dummy-route.json';
 import day from '../Data/day.json';
 
-// Fix leaflet default icon
+
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -16,7 +16,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-// 🚗 Custom car icon
+
 const vehicleIcon = L.divIcon({
   html: `<div style="font-size: 24px; color: red;">🚗</div>`,
   iconSize: [32, 32],
@@ -135,7 +135,7 @@ const MapView = () => {
         {showTrack && <Polyline positions={coords.slice(0, currentIndex + 1)} color="green" />}
       </MapContainer>
 
-      {/* Current Speed Display */}
+      
       <div className="mt-2 text-sm text-gray-600 font-bold">
         ⚡ Current Speed: {(1000 / speed).toFixed(1)}x
       </div>

@@ -132,8 +132,16 @@
   { "latitude": 17.386180, "longitude": 78.487810 },
   { "latitude": 17.386190, "longitude": 78.487820 },
   { "latitude": 17.386200, "longitude": 78.487830 },
-  {"latitude":28.78422, "longitude":77.23182},
-  {"latitude":25.55949, "longitude": 82.75794}
+  { "latitude": 17.386210, "longitude": 78.487840 },
+  { "latitude": 17.386220, "longitude": 78.487850 },
+  { "latitude": 17.386230, "longitude": 78.487860 },
+  { "latitude": 17.386240, "longitude": 78.487870 },
+  { "latitude": 17.386250, "longitude": 78.487880 },
+  { "latitude": 17.386260, "longitude": 78.487890 },
+  { "latitude": 17.386270, "longitude": 78.487900 },
+  { "latitude": 17.386280, "longitude": 78.487910 },
+  {"latitude":28.78422, "longitude":77.23182}
+  
   
 ]
 
